@@ -22,16 +22,40 @@ function Gameboard(size) {
         board[row + i][col] = "S"
       }
     }
+    ships.push(ship)
+    ship.coordinates = coordinates
+  }
+  //null in the array mean nothing is there
+  //S in the array will mean that a ship is there
+  //H in the array mean a hit part of ship is there
+  //M is a missed hit
+  const receiveAttack = (coordinates) => {
+    let row = coordinates[0]
+    let col = coordinates[1]
+    if ((board[row][col] = "S")) {
+      let hitShip = ships.find(
+        (ship) => ship.coordinates.toString() == coordinates.toString()
+      )
+      hitShip.hit()
+      board[row][col] = "H"
+      return
+    } else if ((board[row][col] = "H")) {
+      return console.log("a ship was already hit here")
+    } else if ((board[row][col] = "M")) {
+      return console.log("you already tried to hit here")
+    } else {
+      board[row][col] = "M"
+      return console.log("you miss")
+    }
   }
 
-  const receiveAttack = () => {
-    return null
-  }
-
-  return { board, place, receiveAttack }
+  return { board, ships, place, receiveAttack }
 }
 module.exports = Gameboard
 let gameboard = Gameboard(10)
-gameboard.place(Ship(2), [9, 9])
+let poorShip = Ship(2)
+gameboard.place(poorShip, [0, 0])
 
-console.table(gameboard.board)
+gameboard.receiveAttack([0, 0])
+gameboard.receiveAttack([0, 1])
+console.log(poorShip.isSunk())
