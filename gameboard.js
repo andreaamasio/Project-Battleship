@@ -101,6 +101,7 @@ function Gameboard(size) {
     receiveAttack,
     missedHits,
     generateShipsAndPlace,
+    generateRandomCoordinates,
   }
 }
 
