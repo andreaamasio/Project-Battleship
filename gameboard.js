@@ -1,4 +1,4 @@
-const Ship = require("./ship")
+import Ship from "./ship.js"
 
 function Gameboard(size) {
   const board = Array.from({ length: size }, () => Array(size).fill(null))
@@ -104,9 +104,4 @@ function Gameboard(size) {
   }
 }
 
-module.exports = Gameboard
-
-let gameboard = Gameboard(10)
-gameboard.generateShipsAndPlace()
-console.log(gameboard.ships)
-console.table(gameboard.board)
+export default Gameboard

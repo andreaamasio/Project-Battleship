@@ -1,5 +1,5 @@
-const Gameboard = require("./gameboard")
-const Ship = require("./ship")
+const Gameboard = require("./gameboard").default
+const Ship = require("./ship").default
 //null in the array mean nothing is there
 //S in the array will mean that a ship is there
 //H in the array mean a hit part of ship is there

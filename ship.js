@@ -5,4 +5,4 @@ function Ship(size) {
   const occupiedPositions = new Set()
   return { size, hit, isSunk, occupiedPositions }
 }
-module.exports = Ship
+export default Ship
