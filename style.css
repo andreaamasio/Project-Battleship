@@ -9,6 +9,17 @@
   grid-template-rows: repeat(10, 30px);
   gap: 2px;
 }
+.display-container {
+  display: flex;
+  gap: 10px;
+  justify-content: space-around;
+}
+#display {
+  text-align: center;
+  font-size: 1.6rem;
+  margin: auto;
+  margin-bottom: 30px;
+}
 .display {
   text-align: center;
   font-size: 1.6rem;

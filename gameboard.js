@@ -43,7 +43,7 @@ function Gameboard(size) {
     let col = coordinates[1]
 
     if (row < 0 || row >= size || col < 0 || col >= size) {
-      return console.log("You are firing outside the battlefield, try again.")
+      return "You are firing outside the battlefield, try again."
     }
 
     if (board[row][col] === "S") {
@@ -53,16 +53,16 @@ function Gameboard(size) {
       if (hitShip) {
         hitShip.hit()
         board[row][col] = "H"
-        console.log("Hit!")
+        return "Hit!"
       }
     } else if (board[row][col] === "H") {
-      console.log("A ship was already hit here.")
+      return "A ship was already hit here."
     } else if (board[row][col] === "M") {
-      console.log("You already tried to hit here.")
+      return "You already tried to hit here."
     } else {
       board[row][col] = "M"
       missedHits.push(coordinates)
-      console.log("You miss.")
+      return "You miss."
     }
   }
 

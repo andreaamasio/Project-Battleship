@@ -8,7 +8,9 @@ opponentGameboard.generateShipsAndPlace()
 
 const playerBoardDOM = document.querySelector("#playerBoard")
 const opponentBoardDOM = document.querySelector("#opponentBoard")
-const displayDOM = document.querySelector(".display")
+const display = document.querySelector("#display")
+const displayDOMplayer = document.querySelector(".player")
+const displayDOMopponent = document.querySelector(".opponent")
 
 function renderBoard(board, element, isOpponent = false) {
   element.innerHTML = ""
@@ -34,8 +36,9 @@ function renderBoard(board, element, isOpponent = false) {
   }
 }
 function handleAttack(row, col) {
-  console.log(`Player attacks (${row}, ${col})`)
-  opponentGameboard.receiveAttack([row, col])
+  display.textContent = `Player attacks (${row}, ${col})`
+  let message = opponentGameboard.receiveAttack([row, col])
+  displayDOMplayer.textContent = message
   renderBoard(opponentGameboard.board, opponentBoardDOM, true)
 
   // Check for game over condition
@@ -45,7 +48,7 @@ function handleAttack(row, col) {
   }
 
   // Let opponent attack after player
-  setTimeout(receiveAttackFromOpponent, 500)
+  setTimeout(receiveAttackFromOpponent, 1000)
 }
 
 // Handle opponent attacking player
@@ -57,8 +60,9 @@ function receiveAttackFromOpponent() {
       playerGameboard.board[row][col] !== "H" &&
       playerGameboard.board[row][col] !== "M"
     ) {
-      console.log(`Opponent attacks (${row}, ${col})`)
-      playerGameboard.receiveAttack([row, col])
+      display.textContent = `Opponent attacks (${row}, ${col})`
+      let message = playerGameboard.receiveAttack([row, col])
+      displayDOMopponent.textContent = message
       validMove = true
     }
   }
