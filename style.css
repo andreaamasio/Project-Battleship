@@ -1,7 +1,13 @@
+h1 {
+  font-size: 1.6rem;
+}
+h2 {
+  margin: 3px;
+}
 .board-container {
   display: flex;
   justify-content: space-around;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .board {
   display: grid;
@@ -11,18 +17,17 @@
 }
 .display-container {
   display: flex;
-  gap: 10px;
   justify-content: space-around;
 }
 #display {
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   margin: auto;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .display {
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   margin: auto;
 }
 .cell {
@@ -42,4 +47,44 @@
 }
 .miss {
   background-color: blue;
+}
+.ship-placement {
+  margin-top: 0.5rem;
+  font-size: 1.4rem;
+  display: grid;
+  gap: 5px;
+  align-items: center;
+}
+div.coordinates {
+  display: flex;
+  gap: 5px;
+}
+.horizontal-vertical {
+  display: grid;
+  grid-template-columns: 1fr 0.6fr 0.5fr;
+  align-items: center;
+  gap: 3px;
+}
+p {
+  font-size: 1.2rem;
+  height: 0.8rem;
+}
+#switch {
+  height: 2rem;
+}
+#horizontal,
+#vertical {
+  width: 6rem;
+}
+input {
+  width: 2rem;
+  font-size: 1.2rem;
+  width: 4rem;
+}
+button {
+  font-size: 1.1rem;
+}
+#place {
+  background-color: lightgreen;
+  height: 3rem;
 }

@@ -70,16 +70,25 @@ function Gameboard(size) {
     Math.floor(Math.random() * 10),
     Math.floor(Math.random() * 10),
   ]
-
+  let fleet = [
+    { name: "carrier", quantity: 1, size: 5 },
+    { name: "battleship", quantity: 2, size: 4 },
+    { name: "destroyer", quantity: 3, size: 3 },
+    { name: "submarine", quantity: 4, size: 3 },
+    { name: "patrolBoat", quantity: 5, size: 2 },
+  ]
+  const makeUserPlaceShips = (coordinates, orientation) => {
+    fleet.forEach((shipType) => {
+      for (let i = 0; i < shipType.quantity; i++) {
+        let placed = false
+        let newShip = Ship(shipType.size)
+        while (!placed) {
+          placed = place(newShip, coordinates, orientation)
+        }
+      }
+    })
+  }
   const generateShipsAndPlace = () => {
-    let fleet = [
-      { name: "carrier", quantity: 1, size: 5 },
-      { name: "battleship", quantity: 2, size: 4 },
-      { name: "destroyer", quantity: 3, size: 3 },
-      { name: "submarine", quantity: 4, size: 3 },
-      { name: "patrolBoat", quantity: 5, size: 2 },
-    ]
-
     fleet.forEach((shipType) => {
       for (let i = 0; i < shipType.quantity; i++) {
         let placed = false
@@ -102,6 +111,7 @@ function Gameboard(size) {
     missedHits,
     generateShipsAndPlace,
     generateRandomCoordinates,
+    fleet,
   }
 }
 

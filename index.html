@@ -18,6 +18,21 @@
       <div>
         <h2>Your Board</h2>
         <div id="playerBoard" class="board"></div>
+        <div class="ship-placement">
+          <label for="" class="coordinates-label">Coordinates:</label>
+          <input
+            type="text"
+            name="coordinated"
+            id="coordinates"
+            placeholder="0,2"
+          />
+          <div class="horizontal-vertical">
+            <p>Current orientation:</p>
+            <p id="orientation">horizontal</p>
+            <button id="switch">Switch</button>
+          </div>
+          <button id="place">Place Ship</button>
+        </div>
       </div>
       <div>
         <h2>Opponent's Board</h2>

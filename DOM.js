@@ -1,9 +1,10 @@
 import Player from "./player.js"
 import Gameboard from "./gameboard.js"
+
 const playerGameboard = Gameboard(10)
 const opponentGameboard = Gameboard(10)
 
-playerGameboard.generateShipsAndPlace()
+//playerGameboard.generateShipsAndPlace()
 opponentGameboard.generateShipsAndPlace()
 
 const playerBoardDOM = document.querySelector("#playerBoard")
@@ -78,7 +79,37 @@ function receiveAttackFromOpponent() {
 function checkGameOver(gameboard) {
   return gameboard.ships.every((ship) => ship.isSunk())
 }
+const buttonPlaceShip = document.querySelector("#place")
+const inputCoordinates = document.querySelector("#coordinates")
+const labelOrientation = document.querySelector("#orientation")
+const switchButton = document.querySelector("#switch")
+function getCoordinates() {
+  let coordinates = inputCoordinates.value
+  return coordinates
+}
 
+function getOrientation() {
+  let orientation = labelOrientation.textContent
+  return orientation
+}
+function switchOrientation() {
+  if (labelOrientation.textContent === "horizontal") {
+    labelOrientation.textContent = "vertical"
+  } else {
+    labelOrientation.textContent = "horizontal"
+  }
+}
+switchButton.addEventListener("click", switchOrientation)
+function placeShip(playerGameboard) {
+  let fleet = [...playerGameboard.fleet]
+  let newShip = fleet.pop()
+  for (let i = 0; i < newShip.quantity; i++) {
+    let placed = false
+    while (!placed) {
+      placed = playerGameboard.place(newShip.size, getCoordinates())
+    }
+  }
+}
 // Render initial boards
 renderBoard(playerGameboard.board, playerBoardDOM)
 renderBoard(opponentGameboard.board, opponentBoardDOM, true)
