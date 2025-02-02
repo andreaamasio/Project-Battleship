@@ -20,12 +20,26 @@
         <div id="playerBoard" class="board"></div>
         <div class="ship-placement">
           <label for="" class="coordinates-label">Coordinates:</label>
-          <input
-            type="text"
-            name="coordinated"
-            id="coordinates"
-            placeholder="0,2"
-          />
+          <p>
+            Row:<input
+              type="number"
+              name="coordinated"
+              id="row-coordinates"
+              value="1"
+              min="1"
+              max="10"
+            />
+          </p>
+          <p>
+            Column:<input
+              type="number"
+              name="coordinated"
+              id="col-coordinates"
+              value="1"
+              min="1"
+              max="10"
+            />
+          </p>
           <div class="horizontal-vertical">
             <p>Current orientation:</p>
             <p id="orientation">horizontal</p>

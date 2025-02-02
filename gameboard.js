@@ -14,6 +14,7 @@ function Gameboard(size) {
       (orientationPlacement === "horizontal" && col + ship.size > size) ||
       (orientationPlacement === "vertical" && row + ship.size > size)
     ) {
+      console.log("out of bounds")
       return false // Out of bounds
     }
 
@@ -22,6 +23,7 @@ function Gameboard(size) {
       let checkRow = orientationPlacement === "horizontal" ? row : row + i
       let checkCol = orientationPlacement === "horizontal" ? col + i : col
       if (board[checkRow][checkCol] !== null) {
+        console.log("Space is occupied, can't place here")
         return false // Space is occupied, can't place here
       }
     }
@@ -35,6 +37,7 @@ function Gameboard(size) {
     }
 
     ships.push(ship)
+    console.log("ship placed")
     return true
   }
 
@@ -77,17 +80,17 @@ function Gameboard(size) {
     { name: "submarine", quantity: 4, size: 3 },
     { name: "patrolBoat", quantity: 5, size: 2 },
   ]
-  const makeUserPlaceShips = (coordinates, orientation) => {
-    fleet.forEach((shipType) => {
-      for (let i = 0; i < shipType.quantity; i++) {
-        let placed = false
-        let newShip = Ship(shipType.size)
-        while (!placed) {
-          placed = place(newShip, coordinates, orientation)
-        }
-      }
-    })
-  }
+  // const makeUserPlaceShips = (coordinates, orientation) => {
+  //   fleet.forEach((shipType) => {
+  //     for (let i = 0; i < shipType.quantity; i++) {
+  //       let placed = false
+  //       let newShip = Ship(shipType.size)
+  //       while (!placed) {
+  //         placed = place(newShip, coordinates, orientation)
+  //       }
+  //     }
+  //   })
+  // }
   const generateShipsAndPlace = () => {
     fleet.forEach((shipType) => {
       for (let i = 0; i < shipType.quantity; i++) {

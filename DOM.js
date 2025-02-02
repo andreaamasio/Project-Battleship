@@ -1,5 +1,6 @@
 import Player from "./player.js"
 import Gameboard from "./gameboard.js"
+import Ship from "./ship.js"
 
 const playerGameboard = Gameboard(10)
 const opponentGameboard = Gameboard(10)
@@ -37,18 +38,18 @@ function renderBoard(board, element, isOpponent = false) {
   }
 }
 function handleAttack(row, col) {
+  if (checkGameOver(opponentGameboard)) return // Stop clicks after game ends
+
   display.textContent = `Player attacks (${row}, ${col})`
   let message = opponentGameboard.receiveAttack([row, col])
   displayDOMplayer.textContent = message
   renderBoard(opponentGameboard.board, opponentBoardDOM, true)
 
-  // Check for game over condition
   if (checkGameOver(opponentGameboard)) {
-    alert("You win!")
+    setTimeout(() => alert("You win!"), 500)
     return
   }
 
-  // Let opponent attack after player
   setTimeout(receiveAttackFromOpponent, 1000)
 }
 
@@ -77,16 +78,14 @@ function receiveAttackFromOpponent() {
 
 // Check if all ships are sunk
 function checkGameOver(gameboard) {
+  console.log(gameboard.ships.map((ship) => ship.isSunk())) // Debugging
   return gameboard.ships.every((ship) => ship.isSunk())
 }
 const buttonPlaceShip = document.querySelector("#place")
-const inputCoordinates = document.querySelector("#coordinates")
+const inputCoordinatesRow = document.querySelector("#row-coordinates")
+const inputCoordinatesCol = document.querySelector("#col-coordinates")
 const labelOrientation = document.querySelector("#orientation")
 const switchButton = document.querySelector("#switch")
-function getCoordinates() {
-  let coordinates = inputCoordinates.value
-  return coordinates
-}
 
 function getOrientation() {
   let orientation = labelOrientation.textContent
@@ -100,16 +99,41 @@ function switchOrientation() {
   }
 }
 switchButton.addEventListener("click", switchOrientation)
-function placeShip(playerGameboard) {
-  let fleet = [...playerGameboard.fleet]
-  let newShip = fleet.pop()
-  for (let i = 0; i < newShip.quantity; i++) {
-    let placed = false
-    while (!placed) {
-      placed = playerGameboard.place(newShip.size, getCoordinates())
+let fleetIndex = 0
+let shipCount = 0 // Tracks how many ships of current type have been placed
+
+function placeShip() {
+  if (fleetIndex >= playerGameboard.fleet.length) {
+    display.textContent = "All ships placed! Click on Opponent Board"
+    return
+  }
+
+  let currentShipType = playerGameboard.fleet[fleetIndex]
+
+  // Get user input for coordinates
+  let coordinates = [
+    Number(inputCoordinatesRow.value) - 1,
+    Number(inputCoordinatesCol.value) - 1,
+  ]
+  let orientation = getOrientation()
+
+  let shipObject = Ship(currentShipType.size)
+  let placed = playerGameboard.place(shipObject, coordinates, orientation)
+
+  if (placed) {
+    shipCount++ // Track how many of this type have been placed
+
+    if (shipCount >= currentShipType.quantity) {
+      fleetIndex++ // Move to next type when all of this type are placed
+      shipCount = 0 // Reset ship count for new type
     }
+    display.textContent = "Ship placed!"
+    renderBoard(playerGameboard.board, playerBoardDOM)
+  } else {
+    display.textContent = "Invalid placement, try again!"
   }
 }
+buttonPlaceShip.addEventListener("click", placeShip)
 // Render initial boards
 renderBoard(playerGameboard.board, playerBoardDOM)
 renderBoard(opponentGameboard.board, opponentBoardDOM, true)
